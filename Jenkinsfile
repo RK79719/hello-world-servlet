@@ -41,19 +41,19 @@ stages {
       archiveArtifacts 'target/*.war'
       }
  }
- stage('Sonarqube') {
-    environment {
-        scannerHome = tool 'Sonarqube'
-    }
-    steps {
-        withSonarQubeEnv('Sonarqube') {
-            sh "${scannerHome}/bin/sonar-scanner"
-        }
-        timeout(time: 10, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: true
-        }
-    }
-}
+ //**stage('Sonarqube') {
+    //environment {
+        //scannerHome = tool 'Sonarqube'
+   // }
+    //steps {
+        //withSonarQubeEnv('Sonarqube') {
+            //sh "${scannerHome}/bin/sonar-scanner"
+       // }
+       // timeout(time: 10, unit: 'MINUTES') {
+          //  waitForQualityGate abortPipeline: true
+       // }
+   // }
+//}
      stage('Artifact upload') {
       steps {
      nexusPublisher nexusInstanceId: '1234', nexusRepositoryId: 'releases', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: 'target/Pipeline-ex.war']], mavenCoordinate: [artifactId: 'hello-world-servlet-example', groupId: 'com.geekcap.vmturbo', packaging: 'war', version: '$BUILD_NUMBER']]]
