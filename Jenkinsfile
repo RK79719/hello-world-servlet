@@ -12,7 +12,7 @@ stages {
 
       // Get some code from a GitHub repository
 
-      git 'https://github.com/raknas999/hello-world-servlet.git'
+      git 'https://github.com/RK79719/hello-world-servlet.git'
 
       // Get the Maven tool.
      
@@ -43,10 +43,10 @@ stages {
  }
  stage('Sonarqube') {
     environment {
-        scannerHome = tool 'sonarqube'
+        scannerHome = tool 'Sonarqube'
     }
     steps {
-        withSonarQubeEnv('sonarqube') {
+        withSonarQubeEnv('Sonarqube') {
             sh "${scannerHome}/bin/sonar-scanner"
         }
         timeout(time: 10, unit: 'MINUTES') {
@@ -62,10 +62,10 @@ stages {
 }
 post {
         success {
-            mail to:"raknas000@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Build success"
+            mail to:"radhakadaikar@gmail.com", subject:"SUCCESS: ${currentBuild.fullDisplayName}", body: "Build success"
         }
         failure {
-            mail to:"raknas000@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
+            mail to:"radhakadaikar@gmail.com", subject:"FAILURE: ${currentBuild.fullDisplayName}", body: "Build failed"
         }
     }       
 }
